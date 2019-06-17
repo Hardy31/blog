@@ -16,26 +16,18 @@ class UserController
     private $qb;
     private $user;
 
-
     public function __construct()
     {
         $this->templates = new Engine('../app/views');
-        
     }
 
     public function index()
     {
-
-
-
-
-
         $db = new QueryBuilder('blog');
         $users = $db->getAll('users');
         s($users);
 
         echo $this->templates->render('adminuserspage', ['usersInView' => $users]);  //запуск view
-
     }
 
 
@@ -50,25 +42,20 @@ class UserController
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
         $db = new PDO("mysql:host=localhost;dbname=blog; charset=utf8", 'root', '9959095', $dbOptions);
-        //$this->qb = new QueryBuilder('blog');
-
-        //$this->qb = $qb;
+        
+        
         $this->auth = new \Delight\Auth\Auth($db);
 
 
-
-
-        //s($_POST);
-
         if($_POST){
-            //$this->user->login();
+            
             $this->user = new User();
             var_dump($db);
-            //s($this->user);
+            
             $this->auth->login($_POST['email'], $_POST['password']);
             header('Location: ../posts');
         }
-        //echo $this->templates->getPage('public/userlogin');
+        
         echo $this->templates->render('userlogin');
     }
     public function autoresform()
@@ -84,10 +71,7 @@ class UserController
 
     public function autoresation()
     {
-        s($_POST);
-        s($_FILES);
-
-        //Кодируем полученную картинку и переносим ее в папку ../public/img/ с расширение .jpg
+        
         $newName = md5($_FILES['image']['name']) . '.jpg';
         move_uploaded_file($_FILES['image']['tmp_name'], '../public/img/' . $newName);
 
@@ -123,11 +107,10 @@ class UserController
         $db = new PDO("mysql:host=localhost;dbname=blog; charset=utf8", 'root', '9959095', $dbOptions);
         $this->auth = new \Delight\Auth\Auth($db);
         var_dump($this->auth);
-       // var_dump ($auth);
-        //$auth->destroySession();
+       
 
         $this->auth->logOut();
-        //$this->user->logout();
+        
         header('Location: /');
     }
 

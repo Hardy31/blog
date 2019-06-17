@@ -14,7 +14,6 @@ class Comment
     }
 
 
-
     public function getAll()
     {
         $categories=$this->qb->getAll('comments');
@@ -23,20 +22,9 @@ class Comment
 
     public function create()
     {
-        //s($_POST);
+        
         $this->qb->insert('comments', ['id_user'=>$_POST['id_user'], 'id_post'=>$_POST['id_post'], 'content_comment'=>$_POST['content_comment'], 'tag_show'=>$_POST['tag_show'], 'id_comment_parent'=>$_POST['id_comment_parent'] ] );
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     public function getOne($id)
@@ -44,14 +32,6 @@ class Comment
         $category=$this->qb->getOne('comments',['*'], [], null, ['id'=>$id]);
         return $category;
     }
-
-
-
-
-
-
-
-
 
 
     public function delete($id)

@@ -13,7 +13,6 @@ class HomeController{
 
     public function __construct(Engine $engine)
     {
-        //$this->templates = new Engine('../app/views');
         $this->templates = $engine;
     }
 
@@ -22,10 +21,7 @@ class HomeController{
         $db= new QueryBuilder('blog');
         $posts =  $db->getAll('posts');
 
-
         echo $this->templates->render('homepage', ['postsInView' => $posts]);
-
-
     }
 
 

@@ -22,7 +22,7 @@ class PostsController
     {
 
         $this->templates = new Engine('../app/views');
-        //S($this->templates);
+       
     }
 
     public function index()
@@ -30,7 +30,6 @@ class PostsController
         $db = new QueryBuilder('blog');
         $posts = $db->getAll('posts');
         $categories = $db->getAll('categories');
-        //s($categories);
         echo $categories[0]['category'];
         echo $categories[1]['category'];
 
@@ -42,7 +41,6 @@ class PostsController
         $db = new QueryBuilder('blog');
         $posts = $db->getAll('posts');
         $categories = $db->getAll('categories');
-        //s($categories);
         echo $categories[0]['category'];
         echo $categories[1]['category'];
 
@@ -53,9 +51,7 @@ class PostsController
 
     public function indexx()
     {
-        //echo ('1111111111111');
-
-
+        
         if (headers_sent()) {
             var_dump(headers_list());
         }
@@ -98,9 +94,7 @@ class PostsController
         $db = new PDO("mysql:host=localhost;dbname=blog; charset=utf8", 'root', '9959095', $dbOptions);
 
         if($_POST){
-            //s($_POST);
-            //s($_FILES);
-
+            
             //Кодируем полученную картинку и переносим ее в папку ../public/img/ с расширение .jpg
             $newName = md5($_FILES['image']['name']) . '.jpg';
             move_uploaded_file($_FILES['image']['tmp_name'], '../public/img/' . $newName);
@@ -115,26 +109,24 @@ class PostsController
                 'content_post' => $_POST['content_post'],
                 'categories_post' => $_POST['categories_post'],
             ];
-            //s($data);
-
+            
             //Создаю соединение с базой данных
             $db = new QueryBuilder('blog');
             $db->insert('posts', $data);
             header('Location: ../posts');
         }
-        //echo $this->templates->getPage('public/userlogin');
+        
         echo $this->templates->render('creatpostformpage');
     }
 
     public function deletepost($id=null)
     {
 
-       // s ($id);
+      
         echo ($id['id']);
         $db = new QueryBuilder('blog');
         $db->delete($id['id'], 'posts');
 
-        //$this->post->delete($id[0]);
         header("Location: ../posts");
     }
 

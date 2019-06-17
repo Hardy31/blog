@@ -32,7 +32,7 @@ class CommentController
 
         $comments = $db->getAll('comments');
         s($comments);
-        echo $this->templates->render('commentspage', ['comments' => $comments]);  //запуск view
+        echo $this->templates->render('commentspage', ['comments' => $comments]);  
     }
 
 
@@ -43,14 +43,9 @@ class CommentController
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
         $db = new PDO("mysql:host=localhost;dbname=blog; charset=utf8", 'root', '9959095', $dbOptions);
-        //$this->qb = new QueryBuilder('blog');
-        //$this->qb = $qb;
-        //$this->auth = new \Delight\Auth\Auth($db);
-        //s($_POST);
+        
         if($_POST){
             echo ($vars['id']);
-            //s($_POST);
-            //var_dump($db);
             $qb = new QueryBuilder($db);
             $this->comment = new Comment($qb);
             $this->comment->create('comments',$_POST);

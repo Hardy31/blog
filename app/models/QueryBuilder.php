@@ -13,8 +13,7 @@ class QueryBuilder
 
     public function __construct($db)
     {
-        //echo '<br>';
-        //echo $db;
+        
         $dbOptions = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -26,7 +25,7 @@ class QueryBuilder
     }
 
     public function getAll($table){
-        //echo $table;
+        
         $select = $this->queryFactory->newSelect();
         $select
             ->cols(['*'])
@@ -35,7 +34,6 @@ class QueryBuilder
         $sth = $this->pdo->prepare($select->getStatement());
 
         $sth->execute($select->getBindValues());
-        //var_dump($select->getBindValues());
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -78,7 +76,7 @@ class QueryBuilder
 
 
     public function getFoPagination($table){
-       // echo $table;
+       
         $select = $this->queryFactory->newSelect();
         $select
             ->cols(['*'])
@@ -90,11 +88,8 @@ class QueryBuilder
         $sth = $this->pdo->prepare($select->getStatement());
         //S($sth);
         $sth->execute($select->getBindValues());
-        //s($select->getBindValues());
-
+       
         $items = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-
         return $items;
 
     }
@@ -107,12 +102,9 @@ class QueryBuilder
             ->into($tabl)
             ->cols($data);
 
-        //s($insert->getStatement());
+        
         $sth = $this->pdo->prepare($insert->getStatement());
 
-        //s($sth);
-
-        //s($insert->getBindValues());
         $sth->execute($insert->getBindValues());
 
     }
@@ -121,16 +113,12 @@ class QueryBuilder
 
         $delete = $this->queryFactory->newDelete();
         $delete
-            ->from("$tabl")                   // FROM this table
+            ->from("$tabl")                   
             ->where('id_post = :id_post')
-            ->bindValues(['id_post' => $id ]);         // AND WHERE these conditions
+            ->bindValues(['id_post' => $id ]);         
 
-
-        // prepare the statement
         $sth = $this->pdo->prepare($delete->getStatement());
-        var_dump ($sth);
-        var_dump ($delete->getBindValues());
-        // execute with bound values
+
         $sth->execute($delete->getBindValues());
         var_dump ($sth->execute($delete->getBindValues()));
 
@@ -140,20 +128,16 @@ class QueryBuilder
 
         $update = $this->queryFactory->newUpdate();
         $update
-            ->table($tabl)                   // INTO this table
+            ->table($tabl)                  
             ->cols($data)
             ->where('id_post = :id_post')
-            ->bindValues(['id_post' => $id ]);         // AND WHERE these conditions
+            ->bindValues(['id_post' => $id ]);         
 
-        /// prepare the statement
         $sth = $this->pdo->prepare($update->getStatement());
-        var_dump ($sth);
-        echo $id;
-        var_dump ($update->getBindValues());
-        // execute with bound values
-        $sth->execute($update->getBindValues());
-        //var_dump ($sth->execute($update->getBindValues()));
 
+        echo $id;
+
+        $sth->execute($update->getBindValues());
 
     }
 

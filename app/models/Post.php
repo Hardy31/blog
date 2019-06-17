@@ -19,8 +19,7 @@ class Post
 
     public function __construct (QueryBuilder $qb)
     {
-       // $db =
-        //$qb= new QueryBuilder();
+       
         $this->qb=$qb;
     }
 

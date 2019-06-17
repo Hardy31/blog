@@ -52,7 +52,7 @@ class AdminController
 
     public function admintools()
     {
-        //$this->templates = new Engine('../app/views');
+        
         echo $this->templates->render('admintoolspage', ['postsInView'=>'jhgvhvjhgjhvhjv']);
 
     }
